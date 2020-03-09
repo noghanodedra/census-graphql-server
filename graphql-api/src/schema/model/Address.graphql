@@ -1,0 +1,9 @@
+type Address {
+    id: Int
+    line1: String
+    line2: String
+    region: String
+    townCity: String
+    district: String
+    state: String
+}

@@ -1,0 +1,7 @@
+type Family {
+    id: Int
+    headName: String
+    census: Census
+    address: Address
+    individuals: [Individual]
+}

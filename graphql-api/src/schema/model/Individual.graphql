@@ -1,0 +1,14 @@
+type Individual {
+    id: Int
+    name: String
+    age: Int
+    educationYears: Int
+    hoursPerWeek: Int
+    education: Education
+    workClass: WorkClass
+    occupation:  Occupation
+    relationship: Relationship
+    caste: Caste
+    sex: Sex
+    incomeClass: IncomeClass
+}

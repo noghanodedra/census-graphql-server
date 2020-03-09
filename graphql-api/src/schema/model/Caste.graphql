@@ -1,0 +1,6 @@
+type Caste {
+    id: Int
+    name: String
+    minority: Boolean
+    description: String
+}

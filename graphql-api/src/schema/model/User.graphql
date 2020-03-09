@@ -1,0 +1,10 @@
+type User {
+    id: Int
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    lastLoggedIn: Date
+    isAdmin: Boolean
+    active: Boolean
+}

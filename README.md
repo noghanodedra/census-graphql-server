@@ -1,4 +1,5 @@
 # census-graphql-server
+
 type User {
     id: Int
     firstName: String

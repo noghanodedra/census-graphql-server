@@ -1,0 +1,5 @@
+type Occupation {
+    id: Int
+    name: String
+    description: String
+}

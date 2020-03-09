@@ -10,6 +10,9 @@ export class Caste {
     @Column()
     name: string;
 
+    @Column()
+    religion: string;
+
     @Column({ nullable: true })
     description: string;
 

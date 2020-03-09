@@ -2,7 +2,7 @@ import {Entity, PrimaryGeneratedColumn, Column, VersionColumn, OneToMany, Create
 import {Individual} from './Individual';
 
 @Entity()
-export class Sex {
+export class Gender {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -13,7 +13,7 @@ export class Sex {
     @Column({ nullable: true })
     description: string;
 
-    @OneToMany(type => Individual, individual => individual.sex)
+    @OneToMany(type => Individual, individual => individual.gender)
     individuals: Individual[];
 
     @CreateDateColumn()

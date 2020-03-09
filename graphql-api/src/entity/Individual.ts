@@ -4,7 +4,7 @@ import {WorkClass} from './WorkClass';
 import {Occupation} from './Occupation';
 import {Relationship} from './Relationship';
 import {Caste} from './Caste';
-import {Sex} from './Sex';
+import {Gender} from './Gender';
 import {IncomeClass} from './IncomeClass';
 import {Family} from './Family';
 
@@ -42,8 +42,8 @@ export class Individual {
     @ManyToOne(type => Caste, caste => caste.individuals)
     caste: Caste | null;
 
-    @ManyToOne(type => Sex, sex => sex.individuals)
-    sex: Sex | null;
+    @ManyToOne(type => Gender, gender => gender.individuals)
+    gender: Gender | null;
 
     @ManyToOne(type => Family, family => family.individuals)
     family: Family | null;

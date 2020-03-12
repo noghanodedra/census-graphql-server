@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "serve": "babel-node app.js",
+    "start": "nodemon -w src --ext ts --exec ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,12 +18,12 @@
   },
   "homepage": "https://github.com/noghanodedra/census-graphql-server#readme",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.6",
-    "@babel/node": "^7.8.4",
-    "@babel/preset-env": "^7.8.6"
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
+    "apollo-server": "^2.11.0",
     "apollo-server-express": "^2.11.0",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
@@ -31,6 +31,9 @@
     "graphql-tag": "^2.10.3",
     "graphql-tools": "^4.0.7",
     "lodash": "^4.17.15",
-    "vesper": "^0.1.9"
+    "pg": "^7.18.2",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^0.17.6",
+    "typeorm": "^0.2.24"
   }
 }

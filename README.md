@@ -59,7 +59,7 @@ type Caste {
     description: String
 }
 
-type Sex {
+type Gender {
     id: Int
     name: String
     description: String
@@ -82,7 +82,7 @@ type Individual {
     occupation:  Occupation
     relationship: Relationship
     caste: Caste
-    sex: Sex
+    gender: Gender
     incomeClass: IncomeClass
 }
 

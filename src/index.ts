@@ -15,6 +15,7 @@ import { OccupationResolver } from "./resolvers/OccupationResolver";
 import { RelationshipResolver } from "./resolvers/RelationshipResolver";
 import { UserResolver } from "./resolvers/UserResolver";
 import { WorkClassResolver } from "./resolvers/WorkClassResolver";
+import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
 
 async function main() {
     await createConnection();
@@ -29,6 +30,7 @@ async function main() {
             GenderResolver,
             IncomeClassResolver,
             IndividualResolver,
+            MaritalStatusResolver,
             OccupationResolver,
             RelationshipResolver,
             UserResolver,

@@ -8,6 +8,7 @@ import { Caste } from './Caste';
 import { Gender } from './Gender';
 import { IncomeClass } from './IncomeClass';
 import { Family } from './Family';
+import { MaritalStatus } from './MaritalStatus';
 
 @Entity()
 @ObjectType()
@@ -56,6 +57,9 @@ export class Individual extends BaseEntity {
     
     @ManyToOne(type => IncomeClass, incomeClass => incomeClass.individuals)
     incomeClass: IncomeClass | null;
+
+    @ManyToOne(type => MaritalStatus, maritalStatus => maritalStatus.individuals)
+    maritalStatus: MaritalStatus | null;
 
     @CreateDateColumn()
     createdDate: Date;

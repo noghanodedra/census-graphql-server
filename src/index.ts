@@ -7,7 +7,6 @@ import cookieParser from "cookie-parser";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
 
-//const dotenv = require('dotenv');
 import "dotenv/config";
 import { sendRefreshToken } from "./auth/sendRefreshToken";
 import { createAccessToken, createRefreshToken } from "./auth/authHelper";
@@ -27,8 +26,6 @@ import { UserResolver } from "./resolvers/UserResolver";
 import { WorkClassResolver } from "./resolvers/WorkClassResolver";
 import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
 
-//dotenv.config();
-
 (async () => {
     const app = express();
     const corsConfig =
@@ -43,7 +40,6 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         };
     app.use(cors(corsConfig));
     app.use(cookieParser());
-    //app.get("/", (_req, res) => res.send("hello"));
     app.post("/refresh_token", async (req, res) => {
         const token = req.cookies.jid;
         if (!token) {
@@ -102,35 +98,3 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
     });
 
 })();
-
-
-
-
-
-/*async function main() {
-    await createConnection();
-    const schema = await buildSchema (
-    { 
-        resolvers: [
-            AddressResolver, 
-            CasteResolver, 
-            CensusResolver,
-            EducationResolver,
-            FamilyResolver,
-            GenderResolver,
-            IncomeClassResolver,
-            IndividualResolver,
-            MaritalStatusResolver,
-            OccupationResolver,
-            RelationshipResolver,
-            UserResolver,
-            WorkClassResolver,
-        ] 
-    });
-    const server = new ApolloServer({ schema });
-    await server.listen(4000);
-    console.log("Server has started!");
-}
-
-main();
-*/

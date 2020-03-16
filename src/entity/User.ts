@@ -38,6 +38,10 @@ export class User extends BaseEntity {
     @Column({ default: false })
     isAdmin: boolean;
 
+    @Field(() => Number)
+    @Column("int", { default: 0 })
+    tokenVersion: number;
+
     @CreateDateColumn()
     createdDate: Date;
 
@@ -46,4 +50,5 @@ export class User extends BaseEntity {
 
     @VersionColumn()
     version: number;
+    
 }

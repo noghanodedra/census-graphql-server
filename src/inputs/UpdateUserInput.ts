@@ -9,7 +9,7 @@ export class UpdateUserInput {
     @Field({ nullable: true })
     lastName?: string;
 
-    @Field()
+    @Field({ nullable: true })
     active?: boolean;
 
     @Field({ nullable: true })
@@ -18,10 +18,13 @@ export class UpdateUserInput {
     @Field({ nullable: true })
     password?: string;
 
-    @Field()
+    @Field({ nullable: true })
     lastLoggedIn?: Date;
 
-    @Field()
+    @Field({ nullable: true })
     isAdmin?: boolean;
 
+    @Field({ nullable: true })
+    tokenVersion?: number;
+    
 }

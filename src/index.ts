@@ -91,7 +91,7 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         playground: true,
         context: ({ req, res }) => ({ req, res })
     });
-    const path = process.env.PATH || '/graphql';
+    const path = process.env.APP_PATH || '/graphql';
     apolloServer.applyMiddleware({ app, path, cors: false });
     const PORT = process.env.PORT || 4000;
     app.listen(PORT, () => {

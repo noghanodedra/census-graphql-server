@@ -12,8 +12,8 @@ import {
 import { hash, compare } from "bcryptjs";
 import { getConnection } from "typeorm";
 
-import { sendRefreshToken } from "../auth/sendRefreshToken";
-import { createRefreshToken, createAccessToken } from "../auth/authHelper";
+import { sendRefreshToken } from "../auth/SendRefreshToken";
+import { createRefreshToken, createAccessToken } from "../auth/AuthHelper";
 import { MyContext } from "../auth/MyContext";
 import { User } from "../entity/User";
 import { CreateUserInput } from "../inputs/CreateUserInput";

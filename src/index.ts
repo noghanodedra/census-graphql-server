@@ -6,12 +6,13 @@ import { buildSchema } from "type-graphql";
 import cookieParser from "cookie-parser";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
-
 import "dotenv/config";
-import { sendRefreshToken } from "./auth/sendRefreshToken";
-import { createAccessToken, createRefreshToken } from "./auth/authHelper";
+
+import { sendRefreshToken } from "./auth/SendRefreshToken";
+import { createAccessToken, createRefreshToken } from "./auth/AuthHelper";
 
 import { User } from "./entity/User";
+
 import { AddressResolver } from "./resolvers/AddressResolver";
 import { CasteResolver } from "./resolvers/CasteResolver";
 import { CensusResolver } from "./resolvers/CensusResolver";
@@ -90,7 +91,7 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         playground: true,
         context: ({ req, res }) => ({ req, res })
     });
-    const path = '/graphql';
+    const path = process.env.PATH || '/graphql';
     apolloServer.applyMiddleware({ app, path, cors: false });
     const PORT = process.env.PORT || 4000;
     app.listen(PORT, () => {

@@ -32,11 +32,11 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
     const corsConfig =
     process.env.NODE_ENV !== "production"
         ? {
-            origin: "http://localhost:3000",
+            origin: "http://localhost:19006",
             credentials: true
         }
         : {
-            origin: "https://mysite.com",
+            origin: "https://nodedra.com",
             credentials: true
         };
     app.use(cors(corsConfig));
@@ -69,6 +69,16 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
     
     await createConnection();
     
+    const formatError = (error : any) => {
+        const { extensions } = error;
+        console.error(error);
+        const exception = extensions.exception ? extensions.exception : {};
+        console.error('\nStackTrace');
+        console.error(exception.stacktrace);
+        exception.stacktrace = null;
+        return error;
+    };
+
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
         resolvers: [
@@ -89,6 +99,7 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         }),
         introspection: true,
         playground: true,
+        formatError,
         context: ({ req, res }) => ({ req, res })
     });
     const path = process.env.APP_PATH || '/graphql';

@@ -28,85 +28,86 @@ import { WorkClassResolver } from "./resolvers/WorkClassResolver";
 import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
 
 (async () => {
-    const app = express();
-    const corsConfig =
+  const app = express();
+  const corsConfig =
     process.env.NODE_ENV !== "production"
-        ? {
-            origin: "http://localhost:19006",
-            credentials: true
+      ? {
+          origin: "http://192.168.43.37:19006",
+          credentials: true
         }
-        : {
-            origin: "https://nodedra.com",
-            credentials: true
+      : {
+          origin: "https://nodedra.com",
+          credentials: true
         };
-    app.use(cors(corsConfig));
-    app.use(cookieParser());
-    app.post("/refresh_token", async (req, res) => {
-        const token = req.cookies.jid;
-        if (!token) {
-            return res.send({ ok: false, accessToken: "" });
-        }
-        let payload: any = null;
-        try {
-            payload = verify(token, process.env.REFRESH_TOKEN_SECRET!);
-        } catch (err) {
-            console.log(err);
-            return res.send({ ok: false, accessToken: "" });
-        }
-    
-        // token is valid and
-        // we can send back an access token
-        const user = await User.findOne({ id: payload.userId });
-        if (!user) {
-            return res.send({ ok: false, accessToken: "" });
-        }
-        if (user.tokenVersion !== payload.tokenVersion) {
-            return res.send({ ok: false, accessToken: "" });
-        }
-        sendRefreshToken(res, createRefreshToken(user));
-        return res.send({ ok: true, accessToken: createAccessToken(user) });
-    });
-    
-    await createConnection();
-    
-    const formatError = (error : any) => {
-        const { extensions } = error;
-        console.error(error);
-        const exception = extensions.exception ? extensions.exception : {};
-        console.error('\nStackTrace');
-        console.error(exception.stacktrace);
-        exception.stacktrace = null;
-        return error;
-    };
+  app.use(cors(corsConfig));
+  app.use(cookieParser());
+  app.post("/refresh_token", async (req, res) => {
+    const token = req.cookies.jid;
+    if (!token) {
+      return res.send({ ok: false, accessToken: "" });
+    }
+    let payload: any = null;
+    try {
+      payload = verify(token, process.env.REFRESH_TOKEN_SECRET!);
+    } catch (err) {
+      console.log(err);
+      return res.send({ ok: false, accessToken: "" });
+    }
 
-    const apolloServer = new ApolloServer({
-        schema: await buildSchema({
-        resolvers: [
-            AddressResolver, 
-            CasteResolver, 
-            CensusResolver,
-            EducationResolver,
-            FamilyResolver,
-            GenderResolver,
-            IncomeClassResolver,
-            IndividualResolver,
-            MaritalStatusResolver,
-            OccupationResolver,
-            RelationshipResolver,
-            UserResolver,
-            WorkClassResolver,
-        ]
-        }),
-        introspection: true,
-        playground: true,
-        formatError,
-        context: ({ req, res }) => ({ req, res })
-    });
-    const path = process.env.APP_PATH || '/graphql';
-    apolloServer.applyMiddleware({ app, path, cors: false });
-    const PORT = process.env.PORT || 4000;
-    app.listen(PORT, () => {
-        console.log(`🚀 Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`)
-    });
+    // token is valid and
+    // we can send back an access token
+    const user = await User.findOne({ id: payload.userId });
+    if (!user) {
+      return res.send({ ok: false, accessToken: "" });
+    }
+    if (user.tokenVersion !== payload.tokenVersion) {
+      return res.send({ ok: false, accessToken: "" });
+    }
+    sendRefreshToken(res, createRefreshToken(user));
+    return res.send({ ok: true, accessToken: createAccessToken(user) });
+  });
 
+  await createConnection();
+
+  const formatError = (error: any) => {
+    const { extensions } = error;
+    console.error(error);
+    const exception = extensions.exception ? extensions.exception : {};
+    console.error("\nStackTrace");
+    console.error(exception.stacktrace);
+    exception.stacktrace = null;
+    return error;
+  };
+
+  const apolloServer = new ApolloServer({
+    schema: await buildSchema({
+      resolvers: [
+        AddressResolver,
+        CasteResolver,
+        CensusResolver,
+        EducationResolver,
+        FamilyResolver,
+        GenderResolver,
+        IncomeClassResolver,
+        IndividualResolver,
+        MaritalStatusResolver,
+        OccupationResolver,
+        RelationshipResolver,
+        UserResolver,
+        WorkClassResolver
+      ]
+    }),
+    introspection: true,
+    playground: true,
+    formatError,
+    context: ({ req, res }) => ({ req, res })
+  });
+  const path = process.env.APP_PATH || "/graphql";
+  apolloServer.applyMiddleware({ app, path, cors: false });
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(
+      `🚀 Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`
+    );
+  });
 })();

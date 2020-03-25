@@ -54,12 +54,12 @@ class UserProfile {
 @Resolver()
 export class UserResolver {
   @Query(() => [UserProfile])
-  userList() {
+  async userList() {
     return User.find();
   }
 
   @Query(() => UserProfile)
-  user(@Arg("id") id: string) {
+  async user(@Arg("id") id: string) {
     return User.findOne({ where: { id } });
   }
 

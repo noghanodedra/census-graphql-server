@@ -1,19 +1,17 @@
-import { Resolver, Query, Mutation, Arg, UseMiddleware } from "type-graphql";
+import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { MaritalStatus } from "../entity/MaritalStatus";
 import { CreateMaritalStatusInput } from "../inputs/CreateMaritalStatusInput";
 import { UpdateMaritalStatusInput } from "../inputs/UpdateMaritalStatusInput";
-import { isAuth } from "../auth/AuthMiddleware";
 
 @Resolver()
 export class MaritalStatusResolver {
-  @UseMiddleware(isAuth)
   @Query(() => [MaritalStatus])
-  maritalStatusList() {
+  async maritalStatusList() {
     return MaritalStatus.find();
   }
 
   @Query(() => MaritalStatus)
-  maritalStatus(@Arg("id") id: string) {
+  async maritalStatus(@Arg("id") id: string) {
     return MaritalStatus.findOne({ where: { id } });
   }
 

@@ -16,6 +16,7 @@ import { User } from "./entity/User";
 import { AddressResolver } from "./resolvers/AddressResolver";
 import { CasteResolver } from "./resolvers/CasteResolver";
 import { CensusResolver } from "./resolvers/CensusResolver";
+import { DistrictResolver } from "./resolvers/DistrictResolver";
 import { EducationResolver } from "./resolvers/EducationResolver";
 import { FamilyResolver } from "./resolvers/FamilyResolver";
 import { GenderResolver } from "./resolvers/GenderResolver";
@@ -23,6 +24,7 @@ import { IncomeClassResolver } from "./resolvers/IncomeClassResolver";
 import { IndividualResolver } from "./resolvers/IndividualResolver";
 import { OccupationResolver } from "./resolvers/OccupationResolver";
 import { RelationshipResolver } from "./resolvers/RelationshipResolver";
+import { StateResolver } from "./resolvers/StateResolver";
 import { UserResolver } from "./resolvers/UserResolver";
 import { WorkClassResolver } from "./resolvers/WorkClassResolver";
 import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
@@ -85,6 +87,7 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         AddressResolver,
         CasteResolver,
         CensusResolver,
+        DistrictResolver,
         EducationResolver,
         FamilyResolver,
         GenderResolver,
@@ -93,6 +96,7 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         MaritalStatusResolver,
         OccupationResolver,
         RelationshipResolver,
+        StateResolver,
         UserResolver,
         WorkClassResolver
       ]

@@ -1,5 +1,6 @@
 import {
   Entity,
+  Unique,
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
@@ -13,6 +14,8 @@ import { State } from "./State";
 
 @Entity()
 @ObjectType()
+@Unique(["name"])
+@Unique("UQ_NAMES", ["name"])
 export class District extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()

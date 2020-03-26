@@ -1,54 +1,64 @@
-import {Entity, BaseEntity, PrimaryGeneratedColumn, Column, Index, VersionColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import {
+  Entity,
+  Unique,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  Index,
+  VersionColumn,
+  CreateDateColumn,
+  UpdateDateColumn
+} from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 
 @Entity()
 @ObjectType()
 @Index(["email"], { unique: true })
+@Unique(["email"])
+@Unique("UQ_NAMES", ["email"])
 export class User extends BaseEntity {
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Field(() => ID)
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Field(() => String)
+  @Column()
+  firstName: string;
 
-    @Field(() => String)
-    @Column()
-    firstName: string;
+  @Field(() => String)
+  @Column()
+  lastName: string;
 
-    @Field(() => String)
-    @Column()
-    lastName: string;
+  @Field(() => Boolean)
+  @Column({ default: false })
+  active: boolean;
 
-    @Field(() => Boolean)
-    @Column({ default: false })
-    active: boolean;
+  @Field(() => String)
+  @Column()
+  email: string;
 
-    @Field(() => String)
-    @Column()
-    email: string;
+  @Field(() => String)
+  @Column()
+  password: string;
 
-    @Field(() => String)
-    @Column()
-    password: string;
+  @Field()
+  @Column({ type: "timestamp" })
+  lastLoggedIn: Date;
 
-    @Field()
-    @Column({ type: 'timestamp'})
-    lastLoggedIn: Date;
+  @Field(() => Boolean)
+  @Column({ default: false })
+  isAdmin: boolean;
 
-    @Field(() => Boolean)
-    @Column({ default: false })
-    isAdmin: boolean;
+  @Field(() => Number)
+  @Column("int", { default: 0 })
+  tokenVersion: number;
 
-    @Field(() => Number)
-    @Column("int", { default: 0 })
-    tokenVersion: number;
+  @CreateDateColumn()
+  createdDate: Date;
 
-    @CreateDateColumn()
-    createdDate: Date;
+  @UpdateDateColumn()
+  updatedDate: Date;
 
-    @UpdateDateColumn()
-    updatedDate: Date;
-
-    @VersionColumn()
-    version: number;
-    
+  @VersionColumn()
+  version: number;
 }

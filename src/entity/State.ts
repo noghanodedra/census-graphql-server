@@ -6,13 +6,17 @@ import {
   VersionColumn,
   OneToMany,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  Unique
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
+
 import { District } from "./District";
 
 @Entity()
 @ObjectType()
+@Unique(["name"])
+@Unique("UQ_NAMES", ["name"])
 export class State extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()

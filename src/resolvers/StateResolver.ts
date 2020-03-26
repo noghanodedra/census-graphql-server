@@ -1,4 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
+
 import { State } from "../entity/State";
 import { CreateStateInput } from "../inputs/CreateStateInput";
 import { UpdateStateInput } from "../inputs/UpdateStateInput";

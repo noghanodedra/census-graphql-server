@@ -1,4 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
+
 import { MaritalStatus } from "../entity/MaritalStatus";
 import { CreateMaritalStatusInput } from "../inputs/CreateMaritalStatusInput";
 import { UpdateMaritalStatusInput } from "../inputs/UpdateMaritalStatusInput";
@@ -12,7 +13,7 @@ export class MaritalStatusResolver {
 
   @Query(() => MaritalStatus)
   async maritalStatus(@Arg("id") id: string) {
-    return MaritalStatus.findOne({ where: { id } });
+    return MaritalStatus.findOne({ where: { id }, relations: ["individuals"] });
   }
 
   @Mutation(() => MaritalStatus)

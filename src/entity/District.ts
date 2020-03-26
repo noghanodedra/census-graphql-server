@@ -22,11 +22,12 @@ export class District extends BaseEntity {
   @Column()
   name: string;
 
+  @Field(() => State)
   @ManyToOne(
     type => State,
     state => state.districts
   )
-  state: State | null;
+  state: State;
 
   @CreateDateColumn()
   createdDate: Date;

@@ -26,6 +26,7 @@ export class State extends BaseEntity {
   @Column()
   code: string;
 
+  @Field(() => [District])
   @OneToMany(
     type => District,
     district => district.state

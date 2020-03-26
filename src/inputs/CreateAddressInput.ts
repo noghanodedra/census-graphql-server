@@ -2,23 +2,24 @@ import { InputType, Field } from "type-graphql";
 
 @InputType()
 export class CreateAddressInput {
-    
-    @Field()
-    line1: string;
+  @Field()
+  line1: string;
 
-    @Field()
-    line2: string;
+  @Field()
+  line2: string;
 
-    @Field()
-    region: string;
+  @Field()
+  line3: string;
 
-    @Field()
-    townCity: string;
+  @Field()
+  postcode: string;
 
-    @Field()
-    district: string;
+  @Field()
+  townCity: string;
 
-    @Field()
-    state: string;
+  @Field()
+  district: string;
 
+  @Field()
+  state: string;
 }

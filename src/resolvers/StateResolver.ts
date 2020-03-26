@@ -7,12 +7,12 @@ import { UpdateStateInput } from "../inputs/UpdateStateInput";
 export class StateResolver {
   @Query(() => [State])
   stateList() {
-    return State.find();
+    return State.find({ relations: ["districts"] });
   }
 
   @Query(() => State)
   state(@Arg("id") id: string) {
-    return State.findOne({ where: { id } });
+    return State.findOne({ where: { id }, relations: ["districts"] });
   }
 
   @Mutation(() => State)

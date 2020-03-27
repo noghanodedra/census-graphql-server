@@ -1,5 +1,6 @@
 import { InputType, Field, Int } from "type-graphql";
 
+import { CreateAddressInput } from "./CreateAddressInput";
 @InputType()
 export class CreateFamilyInput {
   @Field(() => String)
@@ -7,4 +8,10 @@ export class CreateFamilyInput {
 
   @Field(() => Int)
   censusId: number;
+
+  @Field({ nullable: true })
+  addressId?: number;
+
+  @Field(() => CreateAddressInput)
+  address: CreateAddressInput;
 }

@@ -3,7 +3,6 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   OneToOne,
-  JoinColumn,
   Column,
   VersionColumn,
   CreateDateColumn,
@@ -52,7 +51,6 @@ export class Address extends BaseEntity {
     type => Family,
     family => family.address
   )
-  @JoinColumn()
   family: Family;
 
   @CreateDateColumn()

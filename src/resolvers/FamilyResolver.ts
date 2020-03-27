@@ -1,5 +1,8 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
+
 import { Family } from "../entity/Family";
+import { Address } from "../entity/Address";
+import { Census } from "../entity/Census";
 import { CreateFamilyInput } from "../inputs/CreateFamilyInput";
 import { UpdateFamilyInput } from "../inputs/UpdateFamilyInput";
 
@@ -20,7 +23,18 @@ export class FamilyResolver {
 
   @Mutation(() => Family)
   async createFamily(@Arg("data") data: CreateFamilyInput) {
+    let address = null;
+    if (data.address) {
+      address = Address.create(data.address);
+      await address.save();
+      delete data.address;
+    }
+    const census = await Census.findOne({
+      where: { id: data.censusId }
+    });
     const family = Family.create(data);
+    if (address) family.address = address;
+    if (census) family.census = census;
     await family.save();
     return family;
   }

@@ -47,55 +47,55 @@ export class Individual extends BaseEntity {
     type => Education,
     education => education.individuals
   )
-  education: Education | null;
+  education: Education;
 
   @ManyToOne(
     type => WorkClass,
     workClass => workClass.individuals
   )
-  workClass: WorkClass | null;
+  workClass: WorkClass;
 
   @ManyToOne(
     type => Occupation,
     occupation => occupation.individuals
   )
-  occupation: Occupation | null;
+  occupation: Occupation;
 
   @ManyToOne(
     type => Relationship,
     relationship => relationship.individuals
   )
-  relationship: Relationship | null;
+  relationship: Relationship;
 
   @ManyToOne(
     type => Caste,
     caste => caste.individuals
   )
-  caste: Caste | null;
+  caste: Caste;
 
   @ManyToOne(
     type => Gender,
     gender => gender.individuals
   )
-  gender: Gender | null;
+  gender: Gender;
 
   @ManyToOne(
     type => Family,
     family => family.individuals
   )
-  family: Family | null;
+  family: Family;
 
   @ManyToOne(
     type => IncomeClass,
     incomeClass => incomeClass.individuals
   )
-  incomeClass: IncomeClass | null;
+  incomeClass: IncomeClass;
 
   @ManyToOne(
     type => MaritalStatus,
     maritalStatus => maritalStatus.individuals
   )
-  maritalStatus: MaritalStatus | null;
+  maritalStatus: MaritalStatus;
 
   @CreateDateColumn()
   createdDate: Date;

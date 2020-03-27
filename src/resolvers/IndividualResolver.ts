@@ -3,6 +3,15 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Individual } from "../entity/Individual";
 import { CreateIndividualInput } from "../inputs/CreateIndividualInput";
 import { UpdateIndividualInput } from "../inputs/UpdateIndividualInput";
+import { Family } from "../entity/Family";
+import { Education } from "../entity/Education";
+import { WorkClass } from "../entity/WorkClass";
+import { Occupation } from "../entity/Occupation";
+import { Relationship } from "../entity/Relationship";
+import { Caste } from "../entity/Caste";
+import { Gender } from "../entity/Gender";
+import { IncomeClass } from "../entity/IncomeClass";
+import { MaritalStatus } from "../entity/MaritalStatus";
 
 @Resolver()
 export class IndividualResolver {
@@ -31,7 +40,43 @@ export class IndividualResolver {
 
   @Mutation(() => Individual)
   async createIndividual(@Arg("data") data: CreateIndividualInput) {
+    const family = await Family.findOne({
+      where: { id: data.familyId }
+    });
+    const education = await Education.findOne({
+      where: { id: data.educationId }
+    });
+    const workClass = await WorkClass.findOne({
+      where: { id: data.workClassId }
+    });
+    const occupation = await Occupation.findOne({
+      where: { id: data.occupationId }
+    });
+    const relationship = await Relationship.findOne({
+      where: { id: data.relationshipId }
+    });
+    const caste = await Caste.findOne({
+      where: { id: data.casteId }
+    });
+    const gender = await Gender.findOne({
+      where: { id: data.genderId }
+    });
+    const incomeClass = await IncomeClass.findOne({
+      where: { id: data.incomeClassId }
+    });
+    const maritalStatus = await MaritalStatus.findOne({
+      where: { id: data.maritalStatusId }
+    });
     const individual = Individual.create(data);
+    if (family) individual.family = family;
+    if (education) individual.education = education;
+    if (workClass) individual.workClass = workClass;
+    if (incomeClass) individual.incomeClass = incomeClass;
+    if (maritalStatus) individual.maritalStatus = maritalStatus;
+    if (gender) individual.gender = gender;
+    if (caste) individual.caste = caste;
+    if (relationship) individual.relationship = relationship;
+    if (occupation) individual.occupation = occupation;
     await individual.save();
     return individual;
   }

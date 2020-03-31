@@ -28,19 +28,23 @@ export class Family extends BaseEntity {
   @Column()
   headName: string;
 
+  @Field(() => Address)
   @OneToOne(
     type => Address,
-    address => address.family
+    address => address.family,
+    { eager: true }
   )
   @JoinColumn()
   address: Address;
 
+  @Field(() => Census)
   @ManyToOne(
     type => Census,
     census => census.families
   )
   census: Census;
 
+  @Field(() => [Individual])
   @OneToMany(
     type => Individual,
     individual => individual.family

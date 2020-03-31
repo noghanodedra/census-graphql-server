@@ -17,7 +17,7 @@ export class FamilyResolver {
   family(@Arg("id") id: string) {
     return Family.findOne({
       where: { id },
-      relations: ["individuals", "census", "adress"]
+      relations: ["individuals", "census", "address"]
     });
   }
 

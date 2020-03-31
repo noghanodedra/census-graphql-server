@@ -43,57 +43,75 @@ export class Individual extends BaseEntity {
   @Column()
   hoursPerWeek: number;
 
+  @Field(() => Education)
   @ManyToOne(
     type => Education,
-    education => education.individuals
+    education => education.individuals,
+    { eager: true }
   )
   education: Education;
 
+  @Field(() => WorkClass)
   @ManyToOne(
     type => WorkClass,
-    workClass => workClass.individuals
+    workClass => workClass.individuals,
+    { eager: true }
   )
   workClass: WorkClass;
 
+  @Field(() => Occupation)
   @ManyToOne(
     type => Occupation,
-    occupation => occupation.individuals
+    occupation => occupation.individuals,
+    { eager: true }
   )
   occupation: Occupation;
 
+  @Field(() => Relationship)
   @ManyToOne(
     type => Relationship,
-    relationship => relationship.individuals
+    relationship => relationship.individuals,
+    { eager: true }
   )
   relationship: Relationship;
 
+  @Field(() => Caste)
   @ManyToOne(
     type => Caste,
-    caste => caste.individuals
+    caste => caste.individuals,
+    { eager: true }
   )
   caste: Caste;
 
+  @Field(() => Gender)
   @ManyToOne(
     type => Gender,
-    gender => gender.individuals
+    gender => gender.individuals,
+    { eager: true }
   )
   gender: Gender;
 
+  @Field(() => Family)
   @ManyToOne(
     type => Family,
-    family => family.individuals
+    family => family.individuals,
+    { eager: true }
   )
   family: Family;
 
+  @Field(() => IncomeClass)
   @ManyToOne(
     type => IncomeClass,
-    incomeClass => incomeClass.individuals
+    incomeClass => incomeClass.individuals,
+    { eager: true }
   )
   incomeClass: IncomeClass;
 
+  @Field(() => MaritalStatus)
   @ManyToOne(
     type => MaritalStatus,
-    maritalStatus => maritalStatus.individuals
+    maritalStatus => maritalStatus.individuals,
+    { eager: true }
   )
   maritalStatus: MaritalStatus;
 

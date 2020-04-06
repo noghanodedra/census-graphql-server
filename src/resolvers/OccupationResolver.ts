@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
-import { Occupation } from "../entity/Occupation";
+import { Occupation } from "../entities/Occupation";
 import { CreateOccupationInput } from "../inputs/CreateOccupationInput";
 import { UpdateOccupationInput } from "../inputs/UpdateOccupationInput";
 

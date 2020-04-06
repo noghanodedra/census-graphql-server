@@ -5,18 +5,17 @@ import {
   PrimaryGeneratedColumn,
   Column,
   VersionColumn,
-  OneToMany,
+  ManyToOne,
   CreateDateColumn,
   UpdateDateColumn
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
-import { Individual } from "./Individual";
+import { State } from "./State";
 
 @Entity()
 @ObjectType()
 @Unique(["name"])
-@Unique("UQ_NAMES", ["name"])
-export class Education extends BaseEntity {
+export class District extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,15 +24,12 @@ export class Education extends BaseEntity {
   @Column()
   name: string;
 
-  @Field(() => String)
-  @Column({ nullable: true })
-  description: string;
-
-  @OneToMany(
-    type => Individual,
-    individual => individual.education
+  @Field(() => State)
+  @ManyToOne(
+    type => State,
+    state => state.districts
   )
-  individuals: Individual[];
+  state: State;
 
   @CreateDateColumn()
   createdDate: Date;

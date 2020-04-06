@@ -1,17 +1,17 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
-import { Individual } from "../entity/Individual";
+import { Individual } from "../entities/Individual";
 import { CreateIndividualInput } from "../inputs/CreateIndividualInput";
 import { UpdateIndividualInput } from "../inputs/UpdateIndividualInput";
-import { Family } from "../entity/Family";
-import { Education } from "../entity/Education";
-import { WorkClass } from "../entity/WorkClass";
-import { Occupation } from "../entity/Occupation";
-import { Relationship } from "../entity/Relationship";
-import { Caste } from "../entity/Caste";
-import { Gender } from "../entity/Gender";
-import { IncomeClass } from "../entity/IncomeClass";
-import { MaritalStatus } from "../entity/MaritalStatus";
+import { Family } from "../entities/Family";
+import { Education } from "../entities/Education";
+import { WorkClass } from "../entities/WorkClass";
+import { Occupation } from "../entities/Occupation";
+import { Relationship } from "../entities/Relationship";
+import { Caste } from "../entities/Caste";
+import { Gender } from "../entities/Gender";
+import { IncomeClass } from "../entities/IncomeClass";
+import { MaritalStatus } from "../entities/MaritalStatus";
 
 @Resolver()
 export class IndividualResolver {

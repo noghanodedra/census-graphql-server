@@ -6,7 +6,7 @@ import {
   VersionColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne
+  ManyToOne,
 } from "typeorm";
 import { ObjectType, Field, ID, Int } from "type-graphql";
 
@@ -44,74 +44,67 @@ export class Individual extends BaseEntity {
   hoursPerWeek: number;
 
   @Field(() => Education)
-  @ManyToOne(
-    type => Education,
-    education => education.individuals,
-    { eager: true }
-  )
+  @ManyToOne((type) => Education, (education) => education.individuals, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   education: Education;
 
   @Field(() => WorkClass)
-  @ManyToOne(
-    type => WorkClass,
-    workClass => workClass.individuals,
-    { eager: true }
-  )
+  @ManyToOne((type) => WorkClass, (workClass) => workClass.individuals, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   workClass: WorkClass;
 
   @Field(() => Occupation)
-  @ManyToOne(
-    type => Occupation,
-    occupation => occupation.individuals,
-    { eager: true }
-  )
+  @ManyToOne((type) => Occupation, (occupation) => occupation.individuals, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   occupation: Occupation;
 
   @Field(() => Relationship)
   @ManyToOne(
-    type => Relationship,
-    relationship => relationship.individuals,
-    { eager: true }
+    (type) => Relationship,
+    (relationship) => relationship.individuals,
+    { eager: true, onDelete: "CASCADE" }
   )
   relationship: Relationship;
 
   @Field(() => Caste)
-  @ManyToOne(
-    type => Caste,
-    caste => caste.individuals,
-    { eager: true }
-  )
+  @ManyToOne((type) => Caste, (caste) => caste.individuals, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   caste: Caste;
 
   @Field(() => Gender)
-  @ManyToOne(
-    type => Gender,
-    gender => gender.individuals,
-    { eager: true }
-  )
+  @ManyToOne((type) => Gender, (gender) => gender.individuals, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   gender: Gender;
 
   @Field(() => Family)
-  @ManyToOne(
-    type => Family,
-    family => family.individuals,
-    { eager: true }
-  )
+  @ManyToOne((type) => Family, (family) => family.individuals, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   family: Family;
 
   @Field(() => IncomeClass)
-  @ManyToOne(
-    type => IncomeClass,
-    incomeClass => incomeClass.individuals,
-    { eager: true }
-  )
+  @ManyToOne((type) => IncomeClass, (incomeClass) => incomeClass.individuals, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   incomeClass: IncomeClass;
 
   @Field(() => MaritalStatus)
   @ManyToOne(
-    type => MaritalStatus,
-    maritalStatus => maritalStatus.individuals,
-    { eager: true }
+    (type) => MaritalStatus,
+    (maritalStatus) => maritalStatus.individuals,
+    { eager: true, onDelete: "CASCADE" }
   )
   maritalStatus: MaritalStatus;
 

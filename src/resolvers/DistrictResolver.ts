@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { District } from "../entity/District";
+import { District } from "../entities/District";
 import { CreateDistrictInput } from "../inputs/CreateDistrictInput";
 import { UpdateDistrictInput } from "../inputs/UpdateDistrictInput";
 

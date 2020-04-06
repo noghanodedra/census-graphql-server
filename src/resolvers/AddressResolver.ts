@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Address } from "../entity/Address";
+import { Address } from "../entities/Address";
 import { CreateAddressInput } from "../inputs/CreateAddressInput";
 import { UpdateAddressInput } from "../inputs/UpdateAddressInput";
 

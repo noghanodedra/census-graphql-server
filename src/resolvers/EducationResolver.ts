@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Education } from "../entity/Education";
+import { Education } from "../entities/Education";
 import { CreateEducationInput } from "../inputs/CreateEducationInput";
 import { UpdateEducationInput } from "../inputs/UpdateEducationInput";
 

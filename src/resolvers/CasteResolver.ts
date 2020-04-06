@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Caste } from "../entity/Caste";
+import { Caste } from "../entities/Caste";
 import { CreateCasteInput } from "../inputs/CreateCasteInput";
 import { UpdateCasteInput } from "../inputs/UpdateCasteInput";
 

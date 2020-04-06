@@ -4,19 +4,19 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany,
   VersionColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
-import { Family } from "./Family";
+
+import { Individual } from "./Individual";
 
 @Entity()
 @ObjectType()
 @Unique(["name"])
-@Unique("UQ_NAMES", ["name"])
-export class Census extends BaseEntity {
+export class Occupation extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -29,11 +29,9 @@ export class Census extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
-  @OneToMany(
-    type => Family,
-    family => family.census
-  )
-  families: Family[];
+  @Field(() => [Individual])
+  @OneToMany((type) => Individual, (individual) => individual.occupation)
+  individuals: Individual[];
 
   @CreateDateColumn()
   createdDate: Date;

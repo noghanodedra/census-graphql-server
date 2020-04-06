@@ -1,4 +1,4 @@
-import { User } from "../entity/User";
+import { User } from "../entities/User";
 import { sign } from "jsonwebtoken";
 
 export const createAccessToken = (user: User) => {

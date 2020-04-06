@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
-import { Gender } from "../entity/Gender";
+import { Gender } from "../entities/Gender";
 import { CreateGenderInput } from "../inputs/CreateGenderInput";
 import { UpdateGenderInput } from "../inputs/UpdateGenderInput";
 

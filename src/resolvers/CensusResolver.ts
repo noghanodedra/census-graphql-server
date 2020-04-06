@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Census } from "../entity/Census";
+import { Census } from "../entities/Census";
 import { CreateCensusInput } from "../inputs/CreateCensusInput";
 import { UpdateCensusInput } from "../inputs/UpdateCensusInput";
 

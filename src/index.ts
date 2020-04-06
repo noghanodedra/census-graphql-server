@@ -11,7 +11,7 @@ import "dotenv/config";
 import { sendRefreshToken } from "./auth/SendRefreshToken";
 import { createAccessToken, createRefreshToken } from "./auth/AuthHelper";
 
-import { User } from "./entity/User";
+import { User } from "./entities/User";
 
 import { AddressResolver } from "./resolvers/AddressResolver";
 import { CasteResolver } from "./resolvers/CasteResolver";

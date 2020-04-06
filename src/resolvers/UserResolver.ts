@@ -16,7 +16,7 @@ import { UserInputError } from "apollo-server";
 import { sendRefreshToken } from "../auth/SendRefreshToken";
 import { createRefreshToken, createAccessToken } from "../auth/AuthHelper";
 import { MyContext } from "../auth/MyContext";
-import { User } from "../entity/User";
+import { User } from "../entities/User";
 import { CreateUserInput } from "../inputs/CreateUserInput";
 import { UpdateUserInput } from "../inputs/UpdateUserInput";
 

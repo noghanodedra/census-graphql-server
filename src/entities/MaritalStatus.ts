@@ -16,8 +16,7 @@ import { Individual } from "./Individual";
 @Entity()
 @ObjectType()
 @Unique(["name"])
-@Unique("UQ_NAMES", ["name"])
-export class Caste extends BaseEntity {
+export class MaritalStatus extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -27,20 +26,13 @@ export class Caste extends BaseEntity {
   name: string;
 
   @Field(() => String)
-  @Column()
-  religion: string;
-
-  @Field(() => String)
   @Column({ nullable: true })
   description: string;
 
-  @Field(() => Boolean)
-  @Column({ default: false })
-  minority: boolean;
-
+  @Field(() => [Individual])
   @OneToMany(
     type => Individual,
-    individual => individual.caste
+    individual => individual.relationship
   )
   individuals: Individual[];
 

@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
-import { IncomeClass } from "../entity/IncomeClass";
+import { IncomeClass } from "../entities/IncomeClass";
 import { CreateIncomeClassInput } from "../inputs/CreateIncomeClassInput";
 import { UpdateIncomeClassInput } from "../inputs/UpdateIncomeClassInput";
 

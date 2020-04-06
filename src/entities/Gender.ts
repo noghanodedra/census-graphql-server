@@ -1,23 +1,21 @@
 import {
   Entity,
+  Unique,
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
   VersionColumn,
   OneToMany,
   CreateDateColumn,
-  UpdateDateColumn,
-  Unique
+  UpdateDateColumn
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
-
-import { District } from "./District";
+import { Individual } from "./Individual";
 
 @Entity()
 @ObjectType()
 @Unique(["name"])
-@Unique("UQ_NAMES", ["name"])
-export class State extends BaseEntity {
+export class Gender extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -27,15 +25,14 @@ export class State extends BaseEntity {
   name: string;
 
   @Field(() => String)
-  @Column()
-  code: string;
+  @Column({ nullable: true })
+  description: string;
 
-  @Field(() => [District])
   @OneToMany(
-    type => District,
-    district => district.state
+    type => Individual,
+    individual => individual.gender
   )
-  districts: District[];
+  individuals: Individual[];
 
   @CreateDateColumn()
   createdDate: Date;

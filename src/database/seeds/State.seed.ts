@@ -36,7 +36,7 @@ export default class CreateState implements Seeder {
       .createQueryBuilder()
       .select("state")
       .from(State, "state")
-      .where("state.id = :id", { id: 1 })
+      .where("state.name = :name", { name: "Gujarat" })
       .getOne();
 
     await connection

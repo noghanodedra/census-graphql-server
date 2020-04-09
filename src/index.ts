@@ -34,12 +34,12 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
   const corsConfig =
     process.env.NODE_ENV !== "production"
       ? {
-          origin: "http://192.168.43.37:19006",
-          credentials: true
+          origin: "http://192.168.43.7:19006",
+          credentials: true,
         }
       : {
           origin: "https://nodedra.com",
-          credentials: true
+          credentials: true,
         };
   app.use(cors(corsConfig));
   app.use(cookieParser());
@@ -98,13 +98,13 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         RelationshipResolver,
         StateResolver,
         UserResolver,
-        WorkClassResolver
-      ]
+        WorkClassResolver,
+      ],
     }),
     introspection: true,
     playground: true,
     formatError,
-    context: ({ req, res }) => ({ req, res })
+    context: ({ req, res }) => ({ req, res }),
   });
   const path = process.env.APP_PATH || "/graphql";
   apolloServer.applyMiddleware({ app, path, cors: false });

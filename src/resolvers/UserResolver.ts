@@ -7,7 +7,7 @@ import {
   Field,
   Ctx,
   UseMiddleware,
-  Int
+  Int,
 } from "type-graphql";
 import { hash, compare } from "bcryptjs";
 import { getConnection } from "typeorm";
@@ -20,6 +20,7 @@ import { User } from "../entities/User";
 import { CreateUserInput } from "../inputs/CreateUserInput";
 import { UpdateUserInput } from "../inputs/UpdateUserInput";
 
+const PASSWORD_HASH_SEED = 17;
 @ObjectType()
 class LoginResponse {
   @Field()
@@ -66,7 +67,7 @@ export class UserResolver {
 
   @Mutation(() => UserProfile)
   async createUser(@Arg("data") data: CreateUserInput) {
-    data.password = await hash(data.password, 17);
+    data.password = await hash(data.password, PASSWORD_HASH_SEED);
     const user = User.create(data);
     await user.save();
     return user as UserProfile;
@@ -76,13 +77,13 @@ export class UserResolver {
   async updateUser(@Arg("id") id: string, @Arg("data") data: UpdateUserInput) {
     const user = await User.findOne({ where: { id } });
     if (!user) {
-      const inputErrors = { id: "User not found." };
+      const inputError = { message: "User not found." };
       throw new UserInputError("Failed to update user due to input errors", {
-        inputErrors
+        inputError,
       });
     }
     if (data.password) {
-      data.password = await hash(data.password, 17);
+      data.password = await hash(data.password, PASSWORD_HASH_SEED);
     }
     Object.assign(user, data);
     await user.save();
@@ -93,9 +94,9 @@ export class UserResolver {
   async deleteUser(@Arg("id") id: string) {
     const user = await User.findOne({ where: { id } });
     if (!user) {
-      const inputErrors = { id: "This is not a valid user id." };
+      const inputError = { message: "This is not a valid user id." };
       throw new UserInputError("Failed to delete user due to input errors", {
-        inputErrors
+        inputError,
       });
     }
     await user.remove();
@@ -119,6 +120,55 @@ export class UserResolver {
     return true;
   }
 
+  @Mutation(() => Boolean)
+  async changePassword(
+    @Arg("email") email: string,
+    @Arg("password") password: string,
+    @Arg("newPassword") newPassword: string,
+    @Ctx() { res }: MyContext
+  ) {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      const inputError = { message: "Could not find user." };
+      throw new UserInputError(inputError.message, {
+        inputError,
+      });
+    }
+    const valid = await compare(password, user.password);
+    if (!valid) {
+      const inputError = { message: "Invalid password." };
+      throw new UserInputError(inputError.message, {
+        inputError,
+      });
+    }
+    if (!user.active) {
+      const inputError = { message: "User is inactive." };
+      throw new UserInputError(inputError.message, {
+        inputError,
+      });
+    }
+    const samePasswords = await compare(newPassword, user.password);
+    if (samePasswords) {
+      const inputError = {
+        message: "Old password and new password can not be the same.",
+      };
+      throw new UserInputError(inputError.message, {
+        inputError,
+      });
+    }
+    if (newPassword && newPassword.length > 2) {
+      const res = await getConnection()
+        .createQueryBuilder()
+        .update(User)
+        .set({ password: await hash(newPassword, PASSWORD_HASH_SEED) })
+        .where("id = :id", { id: user.id })
+        .execute();
+      console.log("res", res);
+      return true;
+    }
+    return false;
+  }
+
   @Mutation(() => LoginResponse)
   async login(
     @Arg("email") email: string,
@@ -127,22 +177,28 @@ export class UserResolver {
   ): Promise<LoginResponse> {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      const inputErrors = { email: "could not find user." };
-      throw new UserInputError("Failed to login due to validation errors", {
-        inputErrors
+      const inputError = { message: "Could not find user." };
+      throw new UserInputError("Request failure due to validation errors", {
+        inputError,
       });
     }
     const valid = await compare(password, user.password);
     if (!valid) {
-      const inputErrors = { password: "Invalid password." };
-      throw new UserInputError("Failed to login due to validation errors", {
-        inputErrors
+      const inputError = { message: "Invalid password." };
+      throw new UserInputError("Request failure due to validation errors", {
+        inputError,
+      });
+    }
+    if (!user.active) {
+      const inputError = { message: "User is inactive." };
+      throw new UserInputError("Request failure due to validation errors", {
+        inputError,
       });
     }
     sendRefreshToken(res, createRefreshToken(user));
     return {
       accessToken: createAccessToken(user),
-      profile: user as UserProfile
+      profile: user as UserProfile,
     };
   }
 }

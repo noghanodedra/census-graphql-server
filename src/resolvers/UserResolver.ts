@@ -14,7 +14,7 @@ import { getConnection } from "typeorm";
 import { UserInputError } from "apollo-server";
 
 import { sendRefreshToken } from "../auth/SendRefreshToken";
-import { createRefreshToken, createAccessToken } from "../auth/AuthHelper";
+import { setTokens, tokenCookies } from "../auth/AuthHelper";
 import { MyContext } from "../auth/MyContext";
 import { User } from "../entities/User";
 import { CreateUserInput } from "../inputs/CreateUserInput";
@@ -109,6 +109,8 @@ export class UserResolver {
     @Ctx() { res }: MyContext
   ) {
     sendRefreshToken(res, "");
+    res.clearCookie("access");
+    res.clearCookie("refresh");
     return true;
   }
 
@@ -163,7 +165,6 @@ export class UserResolver {
         .set({ password: await hash(newPassword, PASSWORD_HASH_SEED) })
         .where("id = :id", { id: user.id })
         .execute();
-      console.log("res", res);
       return true;
     }
     return false;
@@ -176,6 +177,7 @@ export class UserResolver {
     @Ctx() { res }: MyContext
   ): Promise<LoginResponse> {
     const user = await User.findOne({ where: { email } });
+
     if (!user) {
       const inputError = { message: "Could not find user." };
       throw new UserInputError("Request failure due to validation errors", {
@@ -183,6 +185,7 @@ export class UserResolver {
       });
     }
     const valid = await compare(password, user.password);
+
     if (!valid) {
       const inputError = { message: "Invalid password." };
       throw new UserInputError("Request failure due to validation errors", {
@@ -195,9 +198,14 @@ export class UserResolver {
         inputError,
       });
     }
-    sendRefreshToken(res, createRefreshToken(user));
+    //sendRefreshToken(res, createRefreshToken(user));
+
+    const tokens = setTokens(user);
+    const cookies = tokenCookies(tokens);
+    res.cookie(cookies.access[0], cookies.access[1], cookies.access[2]);
+    res.cookie(cookies.refresh[0], cookies.refresh[1], cookies.refresh[2]);
     return {
-      accessToken: createAccessToken(user),
+      accessToken: tokens.accessToken,
       profile: user as UserProfile,
     };
   }

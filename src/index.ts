@@ -43,6 +43,16 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         };
   app.use(cors(corsConfig));
   app.use(cookieParser());
+
+  app.disable("x-powered-by"); // disable X-Powered-By header
+
+  app.use(function (req, res, next) {
+    res.header("X-XSS-Protection", "1; mode=block");
+    res.header("X-Frame-Options", "deny");
+    res.header("X-Content-Type-Options", "nosniff");
+    next();
+  });
+
   app.post("/refresh_token", async (req, res) => {
     const token = req.cookies.jid;
     if (!token) {

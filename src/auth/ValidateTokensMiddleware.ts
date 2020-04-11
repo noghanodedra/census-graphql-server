@@ -42,10 +42,8 @@ export const ValidateTokensMiddleware = async (
     const cookies = tokenCookies(userTokens);
     res.clearCookie("access");
     res.clearCookie("refresh");
-    res.cookie(...cookies.access);
-    res.cookie(...cookies.refresh);
-    //res.cookie(cookies.access[0], cookies.access[1], cookies.access[2]);
-    //res.cookie(cookies.refresh[0], cookies.refresh[1], cookies.refresh[2]);
+    res.cookie(cookies.access[0], cookies.access[1], cookies.access[2]);
+    res.cookie(cookies.refresh[0], cookies.refresh[1], cookies.refresh[2]);
     return next();
   }
   next();

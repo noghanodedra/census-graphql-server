@@ -1,18 +1,34 @@
 import { User } from "../entities/User";
 import { sign, verify } from "jsonwebtoken";
 
+const getUserDetails = (user: User) => {
+  return {
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    lastLoggedIn: user.lastLoggedIn,
+  };
+};
 export const createAccessToken = (user: User) => {
-  return sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET!, {
-    expiresIn: "15m",
-  });
+  return sign(
+    {
+      user: getUserDetails(user),
+    },
+    process.env.ACCESS_TOKEN_SECRET!,
+    {
+      expiresIn: "1m",
+    }
+  );
 };
 
 export const createRefreshToken = (user: User) => {
   return sign(
-    { userId: user.id, tokenVersion: user.tokenVersion },
+    {
+      user: { ...getUserDetails(user), tokenVersion: user.tokenVersion },
+    },
     process.env.REFRESH_TOKEN_SECRET!,
     {
-      expiresIn: "7d",
+      expiresIn: "2m",
     }
   );
 };
@@ -20,7 +36,8 @@ export const createRefreshToken = (user: User) => {
 export const validateAccessToken = (token: string) => {
   try {
     return verify(token, process.env.ACCESS_TOKEN_SECRET!);
-  } catch {
+  } catch (e) {
+    //console.log(e);
     return null;
   }
 };
@@ -28,7 +45,8 @@ export const validateAccessToken = (token: string) => {
 export const validateRefreshToken = (token: string) => {
   try {
     return verify(token, process.env.REFRESH_TOKEN_SECRET!);
-  } catch {
+  } catch (e) {
+    //console.log(e);
     return null;
   }
 };

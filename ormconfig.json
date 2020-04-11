@@ -6,7 +6,7 @@
   "password": "dev_census",
   "database": "dev_census",
   "synchronize": true,
-  "logging": true,
+  "logging": false,
   "entities": ["src/entities/**/*.ts"],
   "migrations": ["src/migration/**/*.ts"],
   "subscribers": ["src/subscriber/**/*.ts"],

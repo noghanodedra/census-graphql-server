@@ -6,14 +6,11 @@ import {
   ObjectType,
   Field,
   Ctx,
-  UseMiddleware,
-  Int,
 } from "type-graphql";
 import { hash, compare } from "bcryptjs";
 import { getConnection } from "typeorm";
 import { UserInputError } from "apollo-server";
 
-import { sendRefreshToken } from "../auth/SendRefreshToken";
 import { setTokens, tokenCookies } from "../auth/AuthHelper";
 import { MyContext } from "../auth/MyContext";
 import { User } from "../entities/User";
@@ -21,13 +18,6 @@ import { CreateUserInput } from "../inputs/CreateUserInput";
 import { UpdateUserInput } from "../inputs/UpdateUserInput";
 
 const PASSWORD_HASH_SEED = 17;
-@ObjectType()
-class LoginResponse {
-  @Field()
-  accessToken: string;
-  @Field(() => UserProfile)
-  profile: UserProfile;
-}
 
 @ObjectType()
 class UserProfile {
@@ -52,6 +42,15 @@ class UserProfile {
   @Field(() => Boolean)
   isAdmin: boolean;
 }
+
+@ObjectType()
+class LoginResponse {
+  @Field()
+  accessToken: string;
+  @Field(() => UserProfile)
+  profile: UserProfile;
+}
+
 
 @Resolver()
 export class UserResolver {
@@ -108,17 +107,16 @@ export class UserResolver {
     @Arg("accessToken") accessToken: string,
     @Ctx() { res }: MyContext
   ) {
-    sendRefreshToken(res, "");
     res.clearCookie("access");
     res.clearCookie("refresh");
     return true;
   }
 
   @Mutation(() => Boolean)
-  async revokeRefreshTokensForUser(@Arg("userId", () => Int) userId: number) {
+  async revokeRefreshTokensForUser(@Arg("email", () => String) email: string) {
     await getConnection()
       .getRepository(User)
-      .increment({ id: userId }, "tokenVersion", 1);
+      .increment({ email }, "tokenVersion", 1);
     return true;
   }
 
@@ -159,7 +157,7 @@ export class UserResolver {
       });
     }
     if (newPassword && newPassword.length > 2) {
-      const res = await getConnection()
+      await getConnection()
         .createQueryBuilder()
         .update(User)
         .set({ password: await hash(newPassword, PASSWORD_HASH_SEED) })
@@ -174,7 +172,7 @@ export class UserResolver {
   async login(
     @Arg("email") email: string,
     @Arg("password") password: string,
-    @Ctx() { res }: MyContext
+    @Ctx() { req, res }: MyContext
   ): Promise<LoginResponse> {
     const user = await User.findOne({ where: { email } });
 
@@ -198,12 +196,13 @@ export class UserResolver {
         inputError,
       });
     }
-    //sendRefreshToken(res, createRefreshToken(user));
 
     const tokens = setTokens(user);
     const cookies = tokenCookies(tokens);
-    res.cookie(cookies.access[0], cookies.access[1], cookies.access[2]);
-    res.cookie(cookies.refresh[0], cookies.refresh[1], cookies.refresh[2]);
+    // @ts-ignore
+    res.cookie(...cookies.access);
+    // @ts-ignore
+    res.cookie(...cookies.refresh);
     return {
       accessToken: tokens.accessToken,
       profile: user as UserProfile,

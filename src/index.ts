@@ -8,10 +8,8 @@ import { verify } from "jsonwebtoken";
 import cors from "cors";
 import "dotenv/config";
 
-import { sendRefreshToken } from "./auth/SendRefreshToken";
-import { createAccessToken, createRefreshToken } from "./auth/AuthHelper";
-
-import { User } from "./entities/User";
+import { ValidateTokensMiddleware } from "./auth/ValidateTokensMiddleware";
+import { AuthenticationError, ForbiddenError } from "apollo-server";
 
 import { AddressResolver } from "./resolvers/AddressResolver";
 import { CasteResolver } from "./resolvers/CasteResolver";
@@ -43,6 +41,7 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
         };
   app.use(cors(corsConfig));
   app.use(cookieParser());
+  app.use(ValidateTokensMiddleware);
 
   app.disable("x-powered-by"); // disable X-Powered-By header
 
@@ -51,32 +50,6 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
     res.header("X-Frame-Options", "deny");
     res.header("X-Content-Type-Options", "nosniff");
     next();
-  });
-
-  app.post("/refresh_token", async (req, res) => {
-    const token = req.cookies.jid;
-    if (!token) {
-      return res.send({ ok: false, accessToken: "" });
-    }
-    let payload: any = null;
-    try {
-      payload = verify(token, process.env.REFRESH_TOKEN_SECRET!);
-    } catch (err) {
-      console.log(err);
-      return res.send({ ok: false, accessToken: "" });
-    }
-
-    // token is valid and
-    // we can send back an access token
-    const user = await User.findOne({ id: payload.userId });
-    if (!user) {
-      return res.send({ ok: false, accessToken: "" });
-    }
-    if (user.tokenVersion !== payload.tokenVersion) {
-      return res.send({ ok: false, accessToken: "" });
-    }
-    sendRefreshToken(res, createRefreshToken(user));
-    return res.send({ ok: true, accessToken: createAccessToken(user) });
   });
 
   await createConnection();
@@ -113,8 +86,36 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
     }),
     introspection: true,
     playground: true,
+    debug: true,
     formatError,
-    context: ({ req, res }) => ({ req, res }),
+    context: ({ req, res }) => {
+      if (
+        req.body &&
+        (req.body.operationName === "login" ||
+          req.body.operationName === "logout")
+      ) {
+        return { req, res };
+      }
+
+      //@ts-ignore
+      const accessToken = req.token; //req.cookies["access"];
+      if (!accessToken) {
+        throw new AuthenticationError("Not Authenticated");
+      }
+
+      verify(
+        accessToken,
+        process.env.ACCESS_TOKEN_SECRET!,
+        (err: any, decodedToken: any) => {
+          if (err || !decodedToken) {
+            throw new ForbiddenError("Not Authorized");
+          }
+          //@ts-ignore
+          req.user = decodedToken;
+        }
+      );
+      return { req, res };
+    },
   });
   const path = process.env.APP_PATH || "/graphql";
   apolloServer.applyMiddleware({ app, path, cors: false });

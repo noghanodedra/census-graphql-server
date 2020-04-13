@@ -16,7 +16,7 @@ export const createAccessToken = (user: User) => {
     },
     process.env.ACCESS_TOKEN_SECRET!,
     {
-      expiresIn: "1m",
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY_TIME,
     }
   );
 };
@@ -28,7 +28,7 @@ export const createRefreshToken = (user: User) => {
     },
     process.env.REFRESH_TOKEN_SECRET!,
     {
-      expiresIn: "2m",
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY_TIME,
     }
   );
 };
@@ -60,8 +60,8 @@ export const setTokens = (user: User) => {
 export const tokenCookies = (tokens: any) => {
   const { accessToken, refreshToken } = tokens;
   const cookieOptions = {
-    httpOnly: true,
-    // secure: true, //for HTTPS only
+    httpOnly: process.env.HTTP_ONLY,
+    //secure: process.env.SECURE_COOKIE,
     // domain: "your-website.com",
     // SameSite: None
   };

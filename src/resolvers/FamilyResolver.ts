@@ -17,7 +17,7 @@ export class FamilyResolver {
   family(@Arg("id") id: string) {
     return Family.findOne({
       where: { id },
-      relations: ["individuals", "census", "address"]
+      relations: ["individuals", "census", "address"],
     });
   }
 
@@ -30,7 +30,7 @@ export class FamilyResolver {
       delete data.address;
     }
     const census = await Census.findOne({
-      where: { id: data.censusId }
+      where: { id: data.censusId },
     });
     const family = Family.create(data);
     if (address) family.address = address;

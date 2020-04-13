@@ -29,16 +29,10 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
 
 (async () => {
   const app = express();
-  const corsConfig =
-    process.env.NODE_ENV !== "production"
-      ? {
-          origin: "http://192.168.43.7:19006",
-          credentials: true,
-        }
-      : {
-          origin: "https://nodedra.com",
-          credentials: true,
-        };
+  const corsConfig = {
+    origin: process.env.ORIGIN_URL,
+    credentials: true,
+  };
   app.use(cors(corsConfig));
   app.use(cookieParser());
   app.use(ValidateTokensMiddleware);

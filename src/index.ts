@@ -44,7 +44,7 @@ import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
         ssl: true,
         rejectUnauthorized: true,
       },
-      entities: ["src/entities/**/*.ts"],
+      entities: ["../src/entities/**/*.ts"],
     };
     if (process.env.DATABASE_URL) {
       Object.assign(connectionOptions, { url: process.env.DATABASE_URL });
@@ -130,6 +130,7 @@ import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
       if (
         req.body &&
         (req.body.operationName === "login" ||
+          req.body.operationName === "IntrospectionQuery" ||
           req.body.operationName === "logout")
       ) {
         return { req, res };

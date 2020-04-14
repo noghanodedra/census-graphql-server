@@ -41,12 +41,13 @@ import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
       logging: true,
       ssl: process.env.DATABASE_SSL === `true`,
       extra: {
-        ssl: true,
+        ssl: process.env.DATABASE_SSL === `true`,
         rejectUnauthorized: true,
       },
-      entities: ["../src/entities/**/*.ts"],
+      //entities: ["../src/entities/**/*.ts"],
+      entities: [__dirname + "/entities/*{.ts,.js}"],
     };
-    if (process.env.DATABASE_URL) {
+    if (!process.env.DATABASE_URL) {
       Object.assign(connectionOptions, { url: process.env.DATABASE_URL });
     } else {
       // default configuration

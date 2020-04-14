@@ -7,30 +7,30 @@ import {
 } from "typeorm";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
+import { AuthenticationError, ForbiddenError } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import cookieParser from "cookie-parser";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
 import "dotenv/config";
 
-import { ValidateTokensMiddleware } from "./auth/ValidateTokensMiddleware";
-import { AuthenticationError, ForbiddenError } from "apollo-server";
+import { ValidateTokensMiddleware } from "@auth/ValidateTokensMiddleware";
 
-import { AddressResolver } from "./resolvers/AddressResolver";
-import { CasteResolver } from "./resolvers/CasteResolver";
-import { CensusResolver } from "./resolvers/CensusResolver";
-import { DistrictResolver } from "./resolvers/DistrictResolver";
-import { EducationResolver } from "./resolvers/EducationResolver";
-import { FamilyResolver } from "./resolvers/FamilyResolver";
-import { GenderResolver } from "./resolvers/GenderResolver";
-import { IncomeClassResolver } from "./resolvers/IncomeClassResolver";
-import { IndividualResolver } from "./resolvers/IndividualResolver";
-import { OccupationResolver } from "./resolvers/OccupationResolver";
-import { RelationshipResolver } from "./resolvers/RelationshipResolver";
-import { StateResolver } from "./resolvers/StateResolver";
-import { UserResolver } from "./resolvers/UserResolver";
-import { WorkClassResolver } from "./resolvers/WorkClassResolver";
-import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
+import { AddressResolver } from "@resolvers/AddressResolver";
+import { CasteResolver } from "@resolvers/CasteResolver";
+import { CensusResolver } from "@resolvers/CensusResolver";
+import { DistrictResolver } from "@resolvers/DistrictResolver";
+import { EducationResolver } from "@resolvers/EducationResolver";
+import { FamilyResolver } from "@resolvers/FamilyResolver";
+import { GenderResolver } from "@resolvers/GenderResolver";
+import { IncomeClassResolver } from "@resolvers/IncomeClassResolver";
+import { IndividualResolver } from "@resolvers/IndividualResolver";
+import { OccupationResolver } from "@resolvers/OccupationResolver";
+import { RelationshipResolver } from "@resolvers/RelationshipResolver";
+import { StateResolver } from "@resolvers/StateResolver";
+import { UserResolver } from "@resolvers/UserResolver";
+import { WorkClassResolver } from "@resolvers/WorkClassResolver";
+import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
 
 (async () => {
   const getOptions = async () => {
@@ -73,7 +73,11 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
     origin: process.env.ORIGIN_URL,
     credentials: true,
   };
-  app.use(cors(corsConfig));
+  if ((process.env.NODE_ENV || "").trim() === "production") {
+    app.use(cors());
+  } else {
+    app.use(cors(corsConfig));
+  }
   app.use(cookieParser());
   app.use(ValidateTokensMiddleware);
 

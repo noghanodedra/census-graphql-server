@@ -47,7 +47,6 @@ import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
       entities: ["src/entities/**/*.ts"],
     };
     if (process.env.DATABASE_URL) {
-      console.log("production db conn...");
       Object.assign(connectionOptions, { url: process.env.DATABASE_URL });
     } else {
       // default configuration
@@ -127,6 +126,7 @@ import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
     debug: true,
     formatError,
     context: ({ req, res }) => {
+      console.log("op:", req.body.operationName);
       if (
         req.body &&
         (req.body.operationName === "login" ||

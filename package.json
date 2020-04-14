@@ -2,7 +2,15 @@
   "name": "census-graphql-server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/index.ts",
+  "compilerOptions": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  },
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon -w src --ext ts --exec ts-node src/index.ts",

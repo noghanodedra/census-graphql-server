@@ -1,5 +1,9 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import {
+  createConnection,
+  getConnectionOptions,
+  ConnectionOptions,
+} from "typeorm";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
@@ -28,6 +32,41 @@ import { WorkClassResolver } from "./resolvers/WorkClassResolver";
 import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
 
 (async () => {
+  const getOptions = async () => {
+    let connectionOptions: ConnectionOptions;
+    connectionOptions = {
+      type: "postgres",
+      synchronize: true,
+      logging: true,
+      ssl: process.env.DATABASE_SSL === `true`,
+      extra: {
+        ssl: true,
+        rejectUnauthorized: true,
+      },
+      entities: ["src/entities/**/*.ts"],
+    };
+    if (process.env.DATABASE_URL) {
+      console.log("production db conn...");
+      Object.assign(connectionOptions, { url: process.env.DATABASE_URL });
+    } else {
+      // default configuration
+      // you could get a specific config by name getConnectionOptions('production')
+      // or getConnectionOptions(process.env.NODE_ENV)
+      connectionOptions = await getConnectionOptions();
+    }
+
+    return connectionOptions;
+  };
+
+  const connect2Database = async (): Promise<void> => {
+    const typeormconfig = await getOptions();
+    await createConnection(typeormconfig);
+  };
+
+  connect2Database().then(async () => {
+    console.log("Connected to database");
+  });
+
   const app = express();
   const corsConfig = {
     origin: process.env.ORIGIN_URL,
@@ -46,7 +85,7 @@ import { MaritalStatusResolver } from "./resolvers/MaritalStatusResolver";
     next();
   });
 
-  await createConnection();
+  //await createConnection();
 
   const formatError = (error: any) => {
     const { extensions } = error;

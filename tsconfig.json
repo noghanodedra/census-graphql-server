@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@auth/*": ["auth/*"],
+      "@entities/*": ["entities/*"],
+      "@inputs/*": ["inputs/*"],
+      "@resolvers/*": ["resolvers/*"]
+    },
     "target": "es6",
     "module": "commonjs",
     "strict": true,
@@ -7,5 +15,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false
-  }
+  },
+  "exclude": ["node_modules"]
 }

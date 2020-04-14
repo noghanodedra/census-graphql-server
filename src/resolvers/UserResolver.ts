@@ -11,11 +11,11 @@ import { hash, compare } from "bcryptjs";
 import { getConnection } from "typeorm";
 import { UserInputError } from "apollo-server";
 
-import { setTokens, tokenCookies } from "../auth/AuthHelper";
-import { MyContext } from "../auth/MyContext";
-import { User } from "../entities/User";
-import { CreateUserInput } from "../inputs/CreateUserInput";
-import { UpdateUserInput } from "../inputs/UpdateUserInput";
+import { setTokens, tokenCookies } from "@auth/AuthHelper";
+import { MyContext } from "@auth/MyContext";
+import { User } from "@entities/User";
+import { CreateUserInput } from "@inputs/CreateUserInput";
+import { UpdateUserInput } from "@inputs/UpdateUserInput";
 
 const PASSWORD_HASH_SEED = 17;
 

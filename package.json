@@ -17,7 +17,7 @@
     "seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed --config ormconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "postinstall": "npm run build"
+    "postinstall": "npm run-script build"
   },
   "repository": {
     "type": "git",

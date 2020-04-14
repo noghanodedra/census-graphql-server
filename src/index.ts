@@ -73,14 +73,7 @@ import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
     credentials: true,
   };
   if ((process.env.NODE_ENV || "").trim() === "production") {
-    app.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-      );
-      next();
-    });
+    app.use(cors({ credentials: true, origin: "http://localhost:19006" }));
   } else {
     app.use(cors(corsConfig));
   }

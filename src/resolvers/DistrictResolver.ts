@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { District } from "../entities/District";
-import { CreateDistrictInput } from "../inputs/CreateDistrictInput";
-import { UpdateDistrictInput } from "../inputs/UpdateDistrictInput";
+import { District } from "@entities/District";
+import { CreateDistrictInput } from "@inputs/CreateDistrictInput";
+import { UpdateDistrictInput } from "@inputs/UpdateDistrictInput";
 
 @Resolver()
 export class DistrictResolver {

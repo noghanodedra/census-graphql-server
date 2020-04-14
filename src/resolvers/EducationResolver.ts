@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Education } from "../entities/Education";
-import { CreateEducationInput } from "../inputs/CreateEducationInput";
-import { UpdateEducationInput } from "../inputs/UpdateEducationInput";
+import { Education } from "@entities/Education";
+import { CreateEducationInput } from "@inputs/CreateEducationInput";
+import { UpdateEducationInput } from "@inputs/UpdateEducationInput";
 
 @Resolver()
 export class EducationResolver {

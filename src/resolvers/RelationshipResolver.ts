@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
-import { Relationship } from "../entities/Relationship";
-import { CreateRelationshipInput } from "../inputs/CreateRelationshipInput";
-import { UpdateRelationshipInput } from "../inputs/UpdateRelationshipInput";
+import { Relationship } from "@entities/Relationship";
+import { CreateRelationshipInput } from "@inputs/CreateRelationshipInput";
+import { UpdateRelationshipInput } from "@inputs/UpdateRelationshipInput";
 
 @Resolver()
 export class RelationshipResolver {

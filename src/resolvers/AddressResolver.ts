@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Address } from "../entities/Address";
-import { CreateAddressInput } from "../inputs/CreateAddressInput";
-import { UpdateAddressInput } from "../inputs/UpdateAddressInput";
+import { Address } from "@entities/Address";
+import { CreateAddressInput } from "@inputs/CreateAddressInput";
+import { UpdateAddressInput } from "@inputs/UpdateAddressInput";
 
 @Resolver()
 export class AddressResolver {

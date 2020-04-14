@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
-import { WorkClass } from "../entities/WorkClass";
-import { CreateWorkClassInput } from "../inputs/CreateWorkClassInput";
-import { UpdateWorkClassInput } from "../inputs/UpdateWorkClassInput";
+import { WorkClass } from "@entities/WorkClass";
+import { CreateWorkClassInput } from "@inputs/CreateWorkClassInput";
+import { UpdateWorkClassInput } from "@inputs/UpdateWorkClassInput";
 
 @Resolver()
 export class WorkClassResolver {

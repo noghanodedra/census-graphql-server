@@ -1,10 +1,10 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
-import { Family } from "../entities/Family";
-import { Address } from "../entities/Address";
-import { Census } from "../entities/Census";
-import { CreateFamilyInput } from "../inputs/CreateFamilyInput";
-import { UpdateFamilyInput } from "../inputs/UpdateFamilyInput";
+import { Family } from "@entities/Family";
+import { Address } from "@entities/Address";
+import { Census } from "@entities/Census";
+import { CreateFamilyInput } from "@inputs/CreateFamilyInput";
+import { UpdateFamilyInput } from "@inputs/UpdateFamilyInput";
 
 @Resolver()
 export class FamilyResolver {

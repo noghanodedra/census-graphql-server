@@ -6,11 +6,11 @@ import {
   Column,
   VersionColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 
-import { Family } from "./Family";
+import { Family } from "@entities/Family";
 
 @Entity()
 @ObjectType()
@@ -47,10 +47,7 @@ export class Address extends BaseEntity {
   @Column()
   state: string;
 
-  @OneToOne(
-    type => Family,
-    family => family.address
-  )
+  @OneToOne((type) => Family, (family) => family.address)
   family: Family;
 
   @CreateDateColumn()

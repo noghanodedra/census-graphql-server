@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Census } from "../entities/Census";
-import { CreateCensusInput } from "../inputs/CreateCensusInput";
-import { UpdateCensusInput } from "../inputs/UpdateCensusInput";
+import { Census } from "@entities/Census";
+import { CreateCensusInput } from "@inputs/CreateCensusInput";
+import { UpdateCensusInput } from "@inputs/UpdateCensusInput";
 
 @Resolver()
 export class CensusResolver {

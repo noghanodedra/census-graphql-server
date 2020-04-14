@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
-import { Occupation } from "../entities/Occupation";
-import { CreateOccupationInput } from "../inputs/CreateOccupationInput";
-import { UpdateOccupationInput } from "../inputs/UpdateOccupationInput";
+import { Occupation } from "@entities/Occupation";
+import { CreateOccupationInput } from "@inputs/CreateOccupationInput";
+import { UpdateOccupationInput } from "@inputs/UpdateOccupationInput";
 
 @Resolver()
 export class OccupationResolver {

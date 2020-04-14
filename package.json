@@ -15,7 +15,9 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon -w src --ext ts --exec ts-node src/index.ts",
     "seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed --config ormconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",

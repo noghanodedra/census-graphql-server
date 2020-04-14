@@ -6,8 +6,8 @@ import {
   validateAccessToken,
   validateRefreshToken,
   tokenCookies,
-} from "./AuthHelper";
-import { User } from "../entities/User";
+} from "@auth/AuthHelper";
+import { User } from "@entities/User";
 
 export const ValidateTokensMiddleware = async (
   req: Request,

@@ -1,95 +1,65 @@
-# census-graphql-server
+# Census GraphQL-Apollo-Express Server (Population registration backend server)
 
-type User {
-    id: Int
-    firstName: String
-    lastName: String
-    email: String
-    password: String
-    lastLoggedIn: Date
-    isAdmin: Boolean
-    active: Boolean
-}
+This is a simple apollo-graphql-express server built while learning GraphQL. This server does not cover all the use cases related to population registration but the intention is to cover explore graphql arena using type-graphql, type-orm, using meta-programming instead of writing schema files etc.
+Also, from security point of view, secure JWT token based authentication and autorization(with secure cookies) is implemeted with refresh token to invalidate any session anytime from back-end
 
-type Census {
-    id: Int
-    name: String
-    description: String
-    date: Date
-}
+### Demo(GIF)
 
-type Address {
-    id: Int
-    line1: String
-    line2: String
-    region: String
-    townCity: String
-    district: String
-    state: String
-}
+[GraphQL playground is available at](https://census-graphql-server.herokuapp.com/graphql)
+It is deployed on heroku.
 
-type WorkClass {
-    id: Int
-    name: String
-    description: String
-}
+### Prerequisites
 
-type Occupation {
-    id: Int
-    name: String
-    description: String
-}
+Please install latest [NodeJS](https://nodejs.org) & NPM which is required to run this app.
 
-type Education {
-    id: Int
-    name: String
-    description: String
-}
+This app can be tested with client mobile app developed using React-Native [Census-App](https://github.com/noghanodedra/census-app).
+Clone this repository locally and follow set up intructions available on that repository.
+You will also need to have Xcode and iOS simulator set up for IOS and for Android will need respective SDK & emulator set up before hand.
 
-type Relationship {
-    id: Int
-    name: String
-    description: String
-}
+### Installing
 
-type Caste {
-    id: Int
-    name: String
-    minority: Boolean
-    description: String
-}
+Clone the repository by below command.
 
-type Gender {
-    id: Int
-    name: String
-    description: String
-}
+```
+git clone https://github.com/noghanodedra/census-graphql-server.git
+```
 
-type IncomeClass {
-    id: Int
-    name: String
-    description: String
-}
+Then CD to cloned repo folder by
 
-type Individual {
-    id: Int
-    name: String
-    age: Int
-    educationYears: Int
-    hoursPerWeek: Int
-    education: Education
-    workClass: WorkClass
-    occupation:  Occupation
-    relationship: Relationship
-    caste: Caste
-    gender: Gender
-    incomeClass: IncomeClass
-}
+```
+cd census-graphql-server
+npm install
+```
 
-type Family {
-    id: Int
-    headName: String
-    census: Census
-    address: Address
-    individuals: [Individual]
-}
+### Locally running the app
+
+Use below commands to start the app locally from the project root folder.
+
+```
+npm start
+```
+
+### Database and other settings
+
+For database , type-orm is used so all supported databases can be used. To configure database change settings in below file.
+
+```
+ormconfig.json
+```
+
+For cross-domain origin url(local development) and access-token secret, token expiration time use below file.
+
+```
+.env
+```
+
+## Built With
+
+- [Apollo GraphQL](https://www.apollographql.com/) - Simplify app development by combining APIs, databases, and microservices into a single data graph that you can query with GraphQL
+- [apollo-server-express](https://www.npmjs.com/package/apollo-server-express) - Express and Connect integration of GraphQL Server
+- [type-graphql](https://github.com/MichalLytek/type-graphql) - Create GraphQL schema and resolvers with TypeScript, using classes and decorators!
+- [type-orm](https://typeorm.io) - TypeORM is an ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript (ES5, ES6, ES7, ES8).
+
+## Authors
+
+- **Noghan Odedra** - (https://www.linkedin.com/in/noghanodedra)

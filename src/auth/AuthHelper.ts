@@ -37,7 +37,7 @@ export const validateAccessToken = (token: string) => {
   try {
     return verify(token, process.env.ACCESS_TOKEN_SECRET!);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     return null;
   }
 };
@@ -46,7 +46,7 @@ export const validateRefreshToken = (token: string) => {
   try {
     return verify(token, process.env.REFRESH_TOKEN_SECRET!);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     return null;
   }
 };

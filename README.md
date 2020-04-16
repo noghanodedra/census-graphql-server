@@ -3,9 +3,10 @@
 This is a simple apollo-graphql-express server built while learning GraphQL. This server does not cover all the use cases related to population registration but the intention is to cover explore graphql arena using type-graphql, type-orm, using meta-programming instead of writing schema files etc.
 Also, from security point of view, secure JWT token based authentication and autorization(with secure cookies) is implemeted with refresh token to invalidate any session anytime from back-end
 
-### Demo(GIF)
+### Demo
 
-[GraphQL playground is available at](https://census-graphql-server.herokuapp.com/graphql)
+GraphQL playground is available at [https://census-graphql-server.herokuapp.com/graphql](https://census-graphql-server.herokuapp.com/graphql).
+
 It is deployed on heroku.
 
 ### Prerequisites

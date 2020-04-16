@@ -44,7 +44,6 @@ import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
         ssl: process.env.DATABASE_SSL === `true`,
         rejectUnauthorized: true,
       },
-      //entities: ["../src/entities/**/*.ts"],
       entities: [__dirname + "/entities/*{.ts,.js}"],
     };
     if (process.env.DATABASE_URL) {

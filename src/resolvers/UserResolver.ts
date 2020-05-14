@@ -53,7 +53,11 @@ class LoginResponse {
 export class UserResolver {
   @Query(() => [UserProfile])
   async userList() {
-    return User.find();
+    return User.find({
+      order: {
+        firstName: "ASC",
+      },
+    });
   }
 
   @Query(() => UserProfile)

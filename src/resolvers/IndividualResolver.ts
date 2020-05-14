@@ -17,7 +17,11 @@ import { MaritalStatus } from "@entities/MaritalStatus";
 export class IndividualResolver {
   @Query(() => [Individual])
   individualList() {
-    return Individual.find();
+    return Individual.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => Individual)

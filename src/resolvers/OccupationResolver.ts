@@ -8,7 +8,11 @@ import { UpdateOccupationInput } from "@inputs/UpdateOccupationInput";
 export class OccupationResolver {
   @Query(() => [Occupation])
   occupationList() {
-    return Occupation.find();
+    return Occupation.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => Occupation)

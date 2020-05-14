@@ -8,7 +8,11 @@ import { UpdateWorkClassInput } from "@inputs/UpdateWorkClassInput";
 export class WorkClassResolver {
   @Query(() => [WorkClass])
   workClassList() {
-    return WorkClass.find();
+    return WorkClass.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => WorkClass)

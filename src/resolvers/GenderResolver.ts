@@ -8,7 +8,11 @@ import { UpdateGenderInput } from "@inputs/UpdateGenderInput";
 export class GenderResolver {
   @Query(() => [Gender])
   genderList() {
-    return Gender.find();
+    return Gender.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => Gender)

@@ -10,7 +10,11 @@ import { UpdateFamilyInput } from "@inputs/UpdateFamilyInput";
 export class FamilyResolver {
   @Query(() => [Family])
   familyList() {
-    return Family.find();
+    return Family.find({
+      order: {
+        headName: "ASC",
+      },
+    });
   }
 
   @Query(() => Family)

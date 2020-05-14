@@ -7,7 +7,11 @@ import { UpdateCasteInput } from "@inputs/UpdateCasteInput";
 export class CasteResolver {
   @Query(() => [Caste])
   casteList() {
-    return Caste.find();
+    return Caste.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => Caste)

@@ -7,7 +7,11 @@ import { UpdateEducationInput } from "@inputs/UpdateEducationInput";
 export class EducationResolver {
   @Query(() => [Education])
   educationList() {
-    return Education.find();
+    return Education.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => Education)

@@ -7,7 +7,11 @@ import { UpdateDistrictInput } from "@inputs/UpdateDistrictInput";
 export class DistrictResolver {
   @Query(() => [District])
   districtList() {
-    return District.find();
+    return District.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => District)

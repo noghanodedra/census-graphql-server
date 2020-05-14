@@ -8,7 +8,11 @@ import { UpdateIncomeClassInput } from "@inputs/UpdateIncomeClassInput";
 export class IncomeClassResolver {
   @Query(() => [IncomeClass])
   incomeClassList() {
-    return IncomeClass.find();
+    return IncomeClass.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => IncomeClass)

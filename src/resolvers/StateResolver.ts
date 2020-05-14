@@ -8,7 +8,12 @@ import { UpdateStateInput } from "@inputs/UpdateStateInput";
 export class StateResolver {
   @Query(() => [State])
   stateList() {
-    return State.find({ relations: ["districts"] });
+    return State.find({
+      relations: ["districts"],
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => State)

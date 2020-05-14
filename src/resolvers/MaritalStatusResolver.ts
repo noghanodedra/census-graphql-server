@@ -8,7 +8,11 @@ import { UpdateMaritalStatusInput } from "@inputs/UpdateMaritalStatusInput";
 export class MaritalStatusResolver {
   @Query(() => [MaritalStatus])
   async maritalStatusList() {
-    return MaritalStatus.find();
+    return MaritalStatus.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => MaritalStatus)

@@ -7,7 +7,11 @@ import { UpdateCensusInput } from "@inputs/UpdateCensusInput";
 export class CensusResolver {
   @Query(() => [Census])
   censusList() {
-    return Census.find();
+    return Census.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => Census)

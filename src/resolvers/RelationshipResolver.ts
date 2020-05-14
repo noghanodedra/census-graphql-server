@@ -8,7 +8,11 @@ import { UpdateRelationshipInput } from "@inputs/UpdateRelationshipInput";
 export class RelationshipResolver {
   @Query(() => [Relationship])
   relationshipList() {
-    return Relationship.find();
+    return Relationship.find({
+      order: {
+        name: "ASC",
+      },
+    });
   }
 
   @Query(() => Relationship)

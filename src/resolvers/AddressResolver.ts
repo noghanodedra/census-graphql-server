@@ -7,7 +7,11 @@ import { UpdateAddressInput } from "@inputs/UpdateAddressInput";
 export class AddressResolver {
   @Query(() => [Address])
   addressList() {
-    return Address.find();
+    return Address.find({
+      order: {
+        id: "ASC",
+      },
+    });
   }
 
   @Query(() => Address)

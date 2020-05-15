@@ -21,6 +21,7 @@ export class IndividualResolver {
       order: {
         name: "ASC",
       },
+      relations: ["state"]
     });
   }
 

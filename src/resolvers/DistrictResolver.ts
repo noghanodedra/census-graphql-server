@@ -2,6 +2,7 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { District } from "@entities/District";
 import { CreateDistrictInput } from "@inputs/CreateDistrictInput";
 import { UpdateDistrictInput } from "@inputs/UpdateDistrictInput";
+import { State } from "@entities/State";
 
 @Resolver()
 export class DistrictResolver {
@@ -22,7 +23,11 @@ export class DistrictResolver {
 
   @Mutation(() => District)
   async createDistrict(@Arg("data") data: CreateDistrictInput) {
+    const state = await State.findOne({
+       where: { id: data.stateId },
+    });
     const district = District.create(data);
+    if (state) district.state = state;
     await district.save();
     return district;
   }
@@ -35,6 +40,10 @@ export class DistrictResolver {
     const district = await District.findOne({ where: { id } });
     if (!district) throw new Error("District not found!");
     Object.assign(district, data);
+    const state = await State.findOne({
+       where: { id: data.stateId },
+    });
+    if (state) district.state = state;
     await district.save();
     return district;
   }

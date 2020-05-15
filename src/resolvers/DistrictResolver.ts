@@ -11,6 +11,7 @@ export class DistrictResolver {
       order: {
         name: "ASC",
       },
+      relations: ["state"],
     });
   }
 

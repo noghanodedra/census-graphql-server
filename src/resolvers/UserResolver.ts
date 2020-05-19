@@ -105,7 +105,6 @@ export class UserResolver {
 
   @Mutation(() => Boolean)
   async logout(
-    @Arg("accessToken") accessToken: string,
     @Ctx() { res }: MyContext
   ) {
     res.clearCookie("access");

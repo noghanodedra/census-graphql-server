@@ -73,7 +73,12 @@ import { MaritalStatusResolver } from "@resolvers/MaritalStatusResolver";
     credentials: true,
   };
   if ((process.env.NODE_ENV || "").trim() === "production") {
-    app.use(cors({ credentials: true, origin: "http://localhost:19006" }));
+    app.use(
+      cors({
+        credentials: true,
+        origin: "https://census-admin-panel.herokuapp.com:443",
+      })
+    );
   } else {
     app.use(cors(corsConfig));
   }
